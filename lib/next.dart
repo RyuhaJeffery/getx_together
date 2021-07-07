@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'main.dart';
+import 'controller.dart';
 
 class next extends StatelessWidget {
   const next({Key? key}) : super(key: key);
@@ -15,45 +16,18 @@ class next extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Obx(() {
-              return Text('${c.items}');
-            }),
-            // GetBuilder<controller>(
-            //   init: controller(),
-            //   builder: (_) => Text('${c.items}'),
-            // ),
-            TextButton(
-              onPressed: () => print("${c.items}"),
-              child: Text('print'),
+            Obx(
+              () => ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => ListTile(
+                        title: Text(
+                            '제목 : ${c.book[index].title}\n저자 : ${c.book[index].author} '),
+                      ),
+                  separatorBuilder: (_, __) => Divider(),
+                  itemCount: c.book.length),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Get.defaultDialog(
-            title: 'data create',
-            content: TextField(
-              controller: c.textcontroller,
-              //위에 이걸로 data를 넣는건가?
-              decoration: InputDecoration(
-                hintText: 'info',
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  c.createText();
-                  print("${c.items}");
-
-                  Get.back();
-                },
-                child: Text('submit'),
-              ),
-            ],
-          );
-        },
       ),
     );
   }
