@@ -1,42 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'next.dart';
+import 'main.dart';
 
-void main() => runApp(GetMaterialApp(home: Home()));
-
-class controller extends GetxController {
-  var items = ''.obs;
-  final textcontroller = TextEditingController();
-  createText() {
-    items = textcontroller.text.obs;
-    update();
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class next extends StatelessWidget {
+  const next({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller c = Get.put(controller());
     return Scaffold(
       appBar: AppBar(
-        title: Text("together"),
+        title: Text("together1111111"),
       ),
       body: Center(
         child: Column(
           children: [
-            GetBuilder<controller>(
-              init: controller(),
-              builder: (_) => Text('${c.items}'),
-            ),
+            Obx(() {
+              return Text('${c.items}');
+            }),
+            // GetBuilder<controller>(
+            //   init: controller(),
+            //   builder: (_) => Text('${c.items}'),
+            // ),
             TextButton(
               onPressed: () => print("${c.items}"),
               child: Text('print'),
-            ),
-            TextButton(
-              onPressed: () => Get.to(next()),
-              child: Text('next'),
             ),
           ],
         ),
